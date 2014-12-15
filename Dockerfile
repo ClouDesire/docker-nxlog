@@ -12,7 +12,7 @@ RUN dpkg -i /opt/nxlog-ce_2.8.1248_amd64.deb
 RUN apt-get purge -y -q xmlto dblatex
 RUN apt-get autoremove -y -q
 
-EXPOSE $NXLOG_PORT/tcp $NXLOG_PORT/udp
+EXPOSE 5999/tcp 5999/udp
 VOLUME ["/etc/nxlog"]
 
 ENTRYPOINT ["/usr/bin/nxlog"]

@@ -1,11 +1,7 @@
-# DOCKER-VERSION 1.1.2
-# VERSION        0.1
+FROM ubuntu:14.04
+MAINTAINER Cloudesire team <dev@cloudesire.com>
 
-FROM debian:wheezy
-MAINTAINER Justin Plock <justin@plock.net>
-
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -y -q wget debhelper automake \
+RUN apt-get -y update && apt-get install -y -q wget debhelper automake \
         libapr1-dev libpcre3-dev  libssl-dev libdbi-dev libcap-dev \
         libexpat1-dev libtool libperl-dev autotools-dev xmlto dblatex
 
@@ -16,7 +12,8 @@ RUN dpkg -i /opt/nxlog-ce_2.8.1248_amd64.deb
 RUN apt-get purge -y -q xmlto dblatex
 RUN apt-get autoremove -y -q
 
-EXPOSE 514/tcp 514/udp
+EXPOSE $NXLOG_PORT/tcp $NXLOG_PORT/udp
+VOLUME ["/etc/nxlog"]
 
 ENTRYPOINT ["/usr/bin/nxlog"]
 CMD ["-f"]
